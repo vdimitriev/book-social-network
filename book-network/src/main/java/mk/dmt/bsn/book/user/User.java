@@ -2,6 +2,8 @@ package mk.dmt.bsn.book.user;
 
 import jakarta.persistence.*;
 import lombok.*;
+import mk.dmt.bsn.book.book.Book;
+import mk.dmt.bsn.book.history.BookTransactionHistory;
 import mk.dmt.bsn.book.role.Role;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -40,8 +42,15 @@ public class User implements UserDetails, Principal {
     private String password;
     private boolean accountLocked;
     private boolean enabled;
+
     @ManyToMany(fetch = EAGER)
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransactionHistory> histories;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

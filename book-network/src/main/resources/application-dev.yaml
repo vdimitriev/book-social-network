@@ -28,3 +28,24 @@ spring:
         connectiontimeout: 5000
         timeout: 3000
         writetimeout: 5000
+
+application:
+  file:
+    uploads:
+      photos-output-path: ./uploads
+  security:
+    secret-key: ac65917efe0d86df2bab161f6700d20702c18f01ee2b28fa65bce216c515b6f5
+    expiration: 8640000
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activate-account
+
+logging:
+  level:
+    root: ERROR
+    org.springframework.web: DEBUG
+    mk.dmt.bsn: DEBUG
+    org.hibernate: ERROR
+
+server:
+  port: 8088

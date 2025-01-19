@@ -1,34 +1,31 @@
-package mk.dmt.bsn.book.role;
+package mk.dmt.bsn.book.common;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
-import mk.dmt.bsn.book.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
+@SuperBuilder
 @AllArgsConstructor
-@Entity
-@Table(name = "role")
+@NoArgsConstructor
+@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class Role {
+public class BaseEntity {
 
     @Id
     @GeneratedValue
     private Integer id;
-    @Column(unique = true)
-    private String name;
-    @ManyToMany(mappedBy = "roles")
-    @JsonIgnore
-    private List<User> user;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -37,4 +34,12 @@ public class Role {
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
+
+    @CreatedBy
+    @Column(nullable = false, updatable = false)
+    private String createdBy;
+
+    @LastModifiedBy
+    @Column(insertable = false)
+    private String lastModifiedBy;
 }
