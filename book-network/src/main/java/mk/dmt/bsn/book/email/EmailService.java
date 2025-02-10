@@ -56,11 +56,14 @@ public class EmailService {
         Context context = new Context();
         context.setVariables(properties);
 
-        helper.setFrom("contact@mail.dmt.mk");
+        helper.setFrom("d.vlado@gmail.com");
         helper.setTo(to);
         helper.setSubject(subject);
 
         log.info("template name = {}", templateName);
+        log.info("username = {}", username);
+        log.info("send to = {}", to);
+
         String template = templateEngine.process(templateName, context);
 
         helper.setText(template, true);
